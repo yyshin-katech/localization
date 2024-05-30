@@ -1,0 +1,37 @@
+<launch>
+
+  <param name="use_sim_time" value="true" />
+  <param name="EPSG" value="5186" />
+  <param name="MAPFILE_PATH" value="$(find gps_system_localizer)/mapfiles/KIAPI_CONTROL_TEAM" />
+
+  <node type="rviz" name="rviz" pkg="rviz" />
+  <!-- <node name="rviz_worker" type="rviz.py" pkg="sensor_fusion" respawn="true"/> -->
+  <!-- <node pkg="gps_system_localizer" type="rviz_VILS.py" name="rviz_vils" /> -->
+  <node pkg="gps_system_localizer" type="lanelet_marker.py" name="lanelet_marker" output="screen"/>
+  <node pkg="gps_system_localizer" type="waypoint_marker.py" name="waypoint_marker" output="screen"/>
+
+  <!-- <node pkg="tf" type="static_transform_publisher" name="gps2base_link" args="-0.5 0.0 -1.5 0.0 0.0 0.0 /gps /base_link 100" /> -->
+  <!-- <node pkg="tf" type="static_transform_publisher" name="gps2base_link" args="-0.5 0.0 -1.5 0.0 0.0 0.0 /world /base_link 50" /> -->
+  <!-- <node pkg="tf" type="static_transform_publisher" name="base2sensors" args="4.0 0 0.65 0.0 0.0 0.0 /base_link /sensors 100" />
+  <node pkg="tf" type="static_transform_publisher" name="sensor2lux" args="0 -0.31 0 0 -0.025 0 /sensors /ibeo_lux 100" />
+  <node pkg="tf" type="static_transform_publisher" name="lux2center" args="-2.739, 0.312, 1.117  -0.0473478, 0.04009, -0.05311 /ibeo_lux /vlp_center 100" />
+  <node pkg="tf" type="static_transform_publisher" name="center2left" args="-0.065855    0.5617 -0.191769  0.0227825 -0.0285865   -0.46213 /vlp_center /vlp_left 100" />
+  <node pkg="tf" type="static_transform_publisher" name="center2right" args="0.0367582  -0.556226 -0.220098  0.0528514 -0.0122275   0.455515 /vlp_center /vlp_right 100" />
+  -->
+  <node pkg="gps_system_localizer" type="gps2tf.py" name="gps2tf" output="screen"/>
+
+  <!-- <include file="$(find model_publisher)/launch/genesis.launch" /> -->
+
+  <node pkg="gps_system_localizer" type="to_control_team.py" name="control_team_msg_pub" output="screen" />
+
+  <!-- <node pkg="can_sender" type="can_sender.py" name="can_sender" output='screen'>
+    <param name="dbpath" value="$(find can_sender)../Lane_info.dbc" />
+  </node>
+
+  <node pkg="can_receiver" type="can_receiver.py" name="can_receiver" output='screen'>
+    <param name="dbpath" value="$(find can_sender)../Lane_info.dbc" />
+  </node> -->
+
+
+
+</launch>
